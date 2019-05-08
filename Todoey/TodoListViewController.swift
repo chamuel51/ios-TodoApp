@@ -8,13 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TodoListViewController: UITableViewController {
 
+    
+    let itemArray = ["Find Mike","Go to gym", "Go to Dance"]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    //MARK - TableView Datasource Methods
 
 
 }
 
+ 
