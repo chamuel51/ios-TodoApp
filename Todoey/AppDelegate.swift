@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Se termino de cargar didfinishlaunching with options")
         
-        print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String  )
+        
+        
+        
         return true
     }
 
