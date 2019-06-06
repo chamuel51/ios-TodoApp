@@ -20,8 +20,7 @@ class TodoListViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-       loadItems()
+        loadItems()
     
         
         
@@ -121,12 +120,12 @@ class TodoListViewController: UITableViewController  {
     
     
 
-    func loadItems(){
+    func loadItems(with request : NSFetchRequest<Item> = Item.fetchRequest()){
 
     
-        let request : NSFetchRequest<Item> = Item.fetchRequest()
+      
         do{
-            itemArray = try context.fetch(request)
+             itemArray = try context.fetch(request)
 
         } catch {
             print("Error fetching data from context \(error)")
@@ -142,16 +141,23 @@ class TodoListViewController: UITableViewController  {
 }
 
 //MARK: - Seach bar methods
-extension TodoListViewController : UISearchBarDelegate {
+extension TodoListViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request : NSFetchRequest<Item> = Item.fetchRequest()
         
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         
-        request.predicate = predicate
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        let sortDescriptr = NSSortDescriptor(sortDes  ) 
+        loadItems(with: request)
+//        do {
+//            itemArray = try context.fetch(request)
+//        } catch{
+//                print("Error fetching data from context \(error)")
+//        }
+        
+        tableView.reloadData()
 
     }
 }
